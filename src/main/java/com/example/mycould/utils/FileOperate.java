@@ -1,13 +1,23 @@
-package com.example.mycould.util;
+package com.example.mycould.utils;
 
-import com.example.mycould.util.Const.UtilConst;
+import com.example.mycould.Const.UtilConst;
 
 import java.text.DecimalFormat;
+
+/**
+ * 文件信息维护类
+ */
 
 public class FileOperate {
 
     DecimalFormat fnum   =   new   DecimalFormat("##0.00");
 
+    /**
+     * 转换文件大小信息
+     * 保留两位小数
+     * @param b
+     * @return
+     */
     public String formatByte(Long b) {
         if (b >= UtilConst.GB_SIZE) {
             return byteToGB(b);

@@ -1,5 +1,8 @@
-package com.example.mycould.util.Const;
+package com.example.mycould.Const;
 
+/**
+ * 工具常量类
+ */
 public class UtilConst {
     public static final long TO_KB_SIZE = 105;
     public static final long MB_SIZE = 1048576;
