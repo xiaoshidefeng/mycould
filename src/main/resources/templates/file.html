@@ -16,7 +16,10 @@
             <div class="col-md-12 column">
                 <ul th:each="f : ${files}">
                     <li>
-                        <a th:href="@{'http://localhost:8080/filePath/'+${f.path}}" th:text="${f.path}"></a>
+                        <img th:if="${f.isFile}" src="/file.png">
+                        <img th:if="${!f.isFile}" src="/fold.png">
+                        <a th:if="${!f.isFile}" th:href="@{'http://localhost:8080/filePath/'+${f.path}}" th:text="${f.path}"></a>
+                        <a th:if="${f.isFile}" th:href="@{'http://localhost:8080/download/'+${f.path}}" th:text="${f.path}"></a>
                     </li>
                 </ul>
             </div>

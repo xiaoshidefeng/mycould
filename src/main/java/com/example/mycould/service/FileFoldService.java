@@ -8,4 +8,5 @@ import java.util.List;
 @Service
 public interface FileFoldService {
     List<FileFold> getFileFoldList(String path);
+    String fileService(String path);
 }

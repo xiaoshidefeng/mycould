@@ -3,9 +3,9 @@ package com.example.mycould.domain;
 
 public class FileFold {
 
-    private String path;
+    public String path;
 
-    private Boolean isFile;
+    public Boolean isFile;
 
     public String getPath() {
         return path;
