@@ -1,6 +1,7 @@
 package com.example.mycould.utils;
 
 import com.example.mycould.Const.UtilConst;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.text.DecimalFormat;
 
@@ -9,6 +10,7 @@ import java.text.DecimalFormat;
  */
 
 public class FileOperate {
+
 
     DecimalFormat fnum   =   new   DecimalFormat("##0.00");
 
@@ -41,6 +43,20 @@ public class FileOperate {
     public String byteToKB(Long b) {
         float f = b;
         return fnum.format(f / UtilConst.TO_KB_SIZE).toString() + "KB";
+    }
+
+
+    public static String getFormatPath(String  path, String fileRoot) {
+        if (path.length() < 10) {
+            path += "/";
+        }
+        path = path.substring(10, path.length());
+        if (IsNull.isNull(path)) {
+            path = fileRoot;
+        } else {
+            path = fileRoot + path;
+        }
+        return path;
     }
 
 }
