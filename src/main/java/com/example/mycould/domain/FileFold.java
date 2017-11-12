@@ -7,6 +7,16 @@ public class FileFold {
 
     public Boolean isFile;
 
+    public String fileType;
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
+
     public String getPath() {
         return path;
     }

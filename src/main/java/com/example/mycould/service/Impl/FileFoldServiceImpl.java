@@ -34,9 +34,43 @@ public class FileFoldServiceImpl implements FileFoldService {
             pth = pth.replace(fileRoot, "");
             System.out.println(pth);
             fileFold.setPath(pth);
+            fileFold.setFileType(getFileType(pth));
         }
         System.out.println("--------------------------------");
         return fileFolds;
+    }
+
+    /**
+     * 根据文件后缀名 设置文件类型
+     * @param pth
+     * @return
+     */
+    private String getFileType(String pth) {
+        Boolean isVideo = pth.contains(".mp4") || pth.contains(".mkv")
+                || pth.contains(".rmvb") || pth.contains(".avi") || pth.contains(".mpeg")
+                || pth.contains(".wmv");
+        Boolean isImage = pth.contains(".png") || pth.contains(".jpg")
+                || pth.contains(".jpeg") || pth.contains(".bmp") || pth.contains(".gif");
+        Boolean isText = pth.contains(".txt") || pth.contains(".doc")
+                || pth.contains(".docx") || pth.contains(".pdf") || pth.contains(".ppt")
+                || pth.contains(".xls");
+        Boolean isDoFile = pth.contains(".exe") || pth.contains(".bat")
+                || pth.contains(".sh");
+        Boolean isMusic = pth.contains(".mp3") || pth.contains(".wma")
+                || pth.contains(".wav") || pth.contains(".flac");
+        if (isVideo) {
+            return "video";
+        } else if (isImage) {
+            return "image";
+        } else if (isText) {
+            return "text";
+        } else if (isDoFile) {
+            return "doFile";
+        } else if (isMusic) {
+            return "music";
+        } else {
+            return "file";
+        }
     }
 
     @Override

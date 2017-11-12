@@ -16,8 +16,15 @@
             <div class="col-md-12 column">
                 <ul th:each="f : ${files}">
                     <li>
-                        <img th:if="${f.isFile}" src="/file.png">
-                        <img th:if="${!f.isFile}" src="/fold.png">
+                        <span th:if="${f.isFile}" th:switch="${f.fileType}">
+                            <img th:case="video" src="/fileType/video.png">
+                            <img th:case="image" src="/fileType/image.png">
+                            <img th:case="text" src="/fileType/text.png">
+                            <img th:case="doFile" src="/fileType/doFile.png">
+                            <img th:case="music" src="/fileType/music.png">
+                            <img th:case="file" src="/fileType/file.png">
+                        </span>
+                        <img th:if="${!f.isFile}" src="/fileType/fold.png">
                         <a th:if="${!f.isFile}" th:href="@{'http://localhost:8080/filePath/'+${f.path}}" th:text="${f.path}"></a>
                         <a th:if="${f.isFile}" th:href="@{'http://localhost:8080/download/'+${f.path}}" th:text="${f.path}"></a>
                     </li>
