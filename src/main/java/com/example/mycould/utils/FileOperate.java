@@ -46,11 +46,11 @@ public class FileOperate {
     }
 
 
-    public static String getFormatPath(String  path, String fileRoot) {
-        if (path.length() < 10) {
+    public static String getFormatPath(String  path, String fileRoot, int pathLength) {
+        if (path.length() < pathLength) {
             path += "/";
         }
-        path = path.substring(10, path.length());
+        path = path.substring(pathLength, path.length());
         if (IsNull.isNull(path)) {
             path = fileRoot;
         } else {

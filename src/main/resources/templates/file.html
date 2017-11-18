@@ -25,12 +25,19 @@
                             <img th:case="file" src="/fileType/file.png">
                         </span>
                         <img th:if="${!f.isFile}" src="/fileType/fold.png">
-                        <a th:if="${!f.isFile}" th:href="@{'http://localhost:8080/filePath/'+${f.path}}" th:text="${f.path}"></a>
-                        <a th:if="${f.isFile}" th:href="@{'http://localhost:8080/download/'+${f.path}}" th:text="${f.path}"></a>
+                        <a th:if="${!f.isFile}" th:href="@{${foldHost} + ${f.path}}" th:text="${f.path}"></a>
+                        <a th:if="${f.isFile}" th:href="@{${fileHost} + ${f.path}}" th:text="${f.path}"></a>
                     </li>
                 </ul>
             </div>
         </div>
+        <br>
+        <br>
+        <br>
+        <form enctype="multipart/form-data" method="post" action="/testuploadimg">
+            <input type="file" name="file"/>
+            <input type="submit" value="上传"/>
+        </form>
     </div>
 </body>
 </html>

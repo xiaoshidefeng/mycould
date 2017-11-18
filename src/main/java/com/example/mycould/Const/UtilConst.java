@@ -1,7 +1,5 @@
 package com.example.mycould.Const;
 
-import org.springframework.beans.factory.annotation.Value;
-
 /**
  * 工具常量类
  */
