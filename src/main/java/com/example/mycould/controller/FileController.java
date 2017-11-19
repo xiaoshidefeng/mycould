@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-
+import java.awt.print.PrinterIOException;
 
 
 @Controller
@@ -35,17 +35,29 @@ public class FileController {
     @Value("${config.me.host}")
     private String host;
 
+    /**
+     * 获取文件列表
+     * @param model
+     * @param path
+     * @return
+     */
+    @org.jetbrains.annotations.NotNull
+    private String getFileListHtml(Model model, String path) {
+        model.addAttribute("foldHost", "http://" + host + ":8080/filePath/");
+        model.addAttribute("fileHost", "http://" + host + ":8080/download/");
+        model.addAttribute("files", fileFoldService.getFileFoldList(path));
+        return "file";
+    }
 
     @RequestMapping(value = "/filePath/**",method = RequestMethod.GET)
     public String getFilePath(Model model) {
         String path = request.getServletPath();
         path = FileOperate.getFormatPath(path, fileRoot, 10);
         nowPath = path;
-        model.addAttribute("foldHost", "http://" + host + ":8080/filePath/");
-        model.addAttribute("fileHost", "http://" + host + ":8080/download/");
-        model.addAttribute("files", fileFoldService.getFileFoldList(path));
-        return "file";
+        return getFileListHtml(model, path);
     }
+
+
 
     @RequestMapping(value = "/download/**",method = RequestMethod.GET)
     public String downloadFile(Model model, HttpServletRequest request, HttpServletResponse response) {
@@ -53,10 +65,8 @@ public class FileController {
     }
 
     //处理文件上传
-    @RequestMapping(value="/testuploadimg", method = RequestMethod.POST)
-    public @ResponseBody String uploadImg(@RequestParam("file") MultipartFile file,
-                                          HttpServletRequest request) {
-        String contentType = file.getContentType();
+    @RequestMapping(value="/upload", method = RequestMethod.POST)
+    public String uploadImg(@RequestParam("file") MultipartFile file, Model model) {
         String fileName = file.getOriginalFilename();
         if (!nowPath.equals(fileRoot)) {
             nowPath = nowPath + "/";
@@ -65,7 +75,23 @@ public class FileController {
             FileUtil.uploadFile(file.getBytes(), nowPath, fileName);
         } catch (Exception e) {
             // TODO: handle exception
+            e.printStackTrace();
         }
-        return "uploadimg success";
+        return getFileListHtml(model, nowPath);
+    }
+
+    //创建文件夹
+    @RequestMapping(value="/mkdir", method = RequestMethod.POST)
+    public String mkdir(@RequestParam("fold") String fold, Model model) {
+        if (!nowPath.equals(fileRoot)) {
+            nowPath = nowPath + "/";
+        }
+        try {
+            FileUtil.makeDir(nowPath + fold);
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+        return getFileListHtml(model, nowPath);
     }
 }

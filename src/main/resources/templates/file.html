@@ -34,9 +34,14 @@
         <br>
         <br>
         <br>
-        <form enctype="multipart/form-data" method="post" action="/testuploadimg">
+        <form enctype="multipart/form-data" method="post" action="/upload">
             <input type="file" name="file"/>
             <input type="submit" value="上传"/>
+        </form>
+        <br>
+        <form enctype="multipart/form-data" method="post" action="/mkdir">
+            <input type="text" name="fold"/>
+            <input type="submit" value="新建文件夹"/>
         </form>
     </div>
 </body>
